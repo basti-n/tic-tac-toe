@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest"
+    "test": "jest",
+    "pm2": "pm2 start processes.json --no-daemon"
   },
   "dependencies": {
     "debug": "~2.6.9",
