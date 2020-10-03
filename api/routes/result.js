@@ -3,6 +3,6 @@ const resultController = require('../controllers/resultController');
 
 const router = Router();
 
-router.post('/result', resultController.post_result);
+router.post('/', resultController.post_result);
 
 module.exports = router;
