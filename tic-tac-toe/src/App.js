@@ -1,8 +1,14 @@
 import React from 'react'
-import logo from './logo.svg'
+import GameBoard from './GameBoard'
 
 function App() {
-  return
+  return (
+    <>
+      <h1>Hello World</h1>
+      <p>Lorem lkahskdha kjha sdkljh asd ha</p>
+      <GameBoard />
+    </>
+  )
 }
 
 export default App
