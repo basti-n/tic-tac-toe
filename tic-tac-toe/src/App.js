@@ -1,3 +1,4 @@
+import Axios from 'axios'
 import React, { useState } from 'react'
 import GameBoard from './GameBoard'
 
@@ -17,6 +18,12 @@ function App() {
     setGameStatus(newStatus)
   }
 
+  function restartGame() {
+    Axios.post('http://localhost:3000/result/restart')
+      .then((result) => setGameStatus(result.data))
+      .catch((error) => console.error(error))
+  }
+
   return (
     <main className="game">
       <h1>Tic Tac Toe</h1>
@@ -27,8 +34,10 @@ function App() {
       )}
       {gameStatus.completed !== false ? (
         <div>
-          <p>Game is done</p>
-          <button className="game__restart">Restart</button>
+          <p>Game over.</p>
+          <button className="game__restart" onClick={restartGame}>
+            Restart Game
+          </button>
         </div>
       ) : (
         <p>

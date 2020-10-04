@@ -8,20 +8,23 @@
 .game p {
   background: #f2542d;
   color: #f5dfbb;
+  font-weight: bolder;
   padding: 5px;
 }
 
 .game__restart {
-  background: linear-gradient(10deg, #f5dfbb 2%, #0e9594 75%, #127475 90%);
+  background: linear-gradient(10deg, #0e9594 15%, #127475 75%, #0e9594 90%);
   border: none;
   color: #f5dfbb;
   font-size: 1rem;
   font-variant: small-caps;
-  font-weight: bolder;
   padding: 10px 20px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  width: 165px;
 }
 
 .game__restart:hover {
   background: linear-gradient(49deg, #127475 2%, #0e9594 75%, #127475 90%);
+  box-shadow: 1px 1px 4px #127475;
+  font-weight: bolder;
 }

@@ -18,6 +18,7 @@ h5,
 h6 {
   font-family: 'Courier New', Courier, monospace;
   color: #562c2c;
+  margin: 0;
 }
 
 main {
