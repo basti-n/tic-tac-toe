@@ -24,21 +24,21 @@ export default function GameBoard() {
   }, [])
 
   const [gameStatus, setGameStatus] = useState(initialState)
-  const currentGame = gameStatus.game
+  const [player, setPlayer] = useState('X')
 
   function playMove(event) {
     const cellToUpdate = gameStatus.game.findIndex(
       (cell) => cell.id === event.target.id
     )
     const newGameCells = [...gameStatus.game]
-    newGameCells[cellToUpdate] = { value: 'X', id: event.target.id }
-    const updatedGame = newGameCells
-    setGameStatus({ ...gameStatus, game: updatedGame })
+    newGameCells[cellToUpdate] = { value: player, id: event.target.id }
+    setGameStatus({ ...gameStatus, game: newGameCells })
+    setPlayer(player === 'X' ? 'O' : 'X')
   }
 
   return (
     <div className="board__grid">
-      {currentGame.map((gameValue) => (
+      {gameStatus.game.map((gameValue) => (
         <div
           key={gameValue.id}
           className="board__item"
