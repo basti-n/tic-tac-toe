@@ -1,0 +1,27 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game p {
+  background: #f2542d;
+  color: #f5dfbb;
+  padding: 5px;
+}
+
+.game__restart {
+  background: linear-gradient(10deg, #f5dfbb 2%, #0e9594 75%, #127475 90%);
+  border: none;
+  color: #f5dfbb;
+  font-size: 1rem;
+  font-variant: small-caps;
+  font-weight: bolder;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.game__restart:hover {
+  background: linear-gradient(49deg, #127475 2%, #0e9594 75%, #127475 90%);
+}

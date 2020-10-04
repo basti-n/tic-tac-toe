@@ -1,3 +1,4 @@
 @import './base.css';
 
-@import './GameBoard.css';
+@import './gameBoard.css';
+@import './boardContainer.css';

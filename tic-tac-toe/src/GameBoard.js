@@ -12,7 +12,7 @@ export default function GameBoard({
       .post('http://localhost:3000/result', gameStatus.game)
       .then((result) => updateGameStatus(result.data))
       .catch((error) => console.error(error))
-  }, [])
+  }, [player])
 
   function playMove(event) {
     const cellToUpdate = gameStatus.game.findIndex(

@@ -18,17 +18,23 @@ function App() {
   }
 
   return (
-    <main>
+    <main className="game">
       <h1>Tic Tac Toe</h1>
-      <p>Play a round of Tic Tac Toe</p>
       {gameStatus.winner ? (
         <p className="winner">The winner is {gameStatus.winner}</p>
+      ) : (
+        ''
+      )}
+      {gameStatus.completed !== false ? (
+        <div>
+          <p>Game is done</p>
+          <button className="game__restart">Restart</button>
+        </div>
       ) : (
         <p>
           Next is <b>{player}</b>.
         </p>
       )}
-
       <GameBoard
         player={player}
         updatePlayer={updatePlayer}
