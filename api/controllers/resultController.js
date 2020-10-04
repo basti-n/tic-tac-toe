@@ -3,6 +3,12 @@ const { VALID_CELL_VALUES } = require('../constants/valid-cell-values');
 
 let currentGame;
 
+module.exports.post_restart = (_, res) => {
+  currentGame = createEmptyGameResponse();
+
+  return res.status(201).json(currentGame);
+};
+
 module.exports.post_result = (req, res) => {
   if (!currentGame) {
     currentGame = createEmptyGameResponse();
@@ -15,9 +21,11 @@ module.exports.post_result = (req, res) => {
 
 function getUpdatedGameReponse(updatedCells) {
   const updatedGame = createGametable(currentGame.game, updatedCells);
+  const winner = getWinner(updatedGame);
   return {
     game: updatedGame,
     completed: getIsCompleted(updatedGame),
+    ...{ ...(winner || {}) },
   };
 }
 
@@ -47,6 +55,10 @@ function filterInvalidValues(updatedCells) {
 
 function getIsCompleted(game) {
   return game.every((cell) => cell.value !== null);
+}
+
+function getWinner(game) {
+  return null;
 }
 
 function sortBy(arr, key, direction = 'asc') {
