@@ -1,18 +1,28 @@
 const resultController = require('./resultController');
+const gameplan = require('../constants/game-table');
+const {
+  mockRequest_post_result,
+  mockResponse_post_result,
+} = require('../mocks/result.mocks');
 
 describe('ResultController', () => {
-  const mockReq = {};
-  const mockRes = {
-    json: () => {},
-  };
+  describe('postResult', () => {
+    beforeEach(() => {
+      spyOn(mockResponse_post_result, 'json').and.callThrough();
+    });
 
-  it('should return a json object with result set to true', () => {
-    expect.assertions(1);
-    spyOn(mockRes, 'json').and.callThrough();
+    it('should return a json response with the updated game', () => {
+      resultController.post_result(
+        mockRequest_post_result,
+        mockResponse_post_result
+      );
 
-    const expected = { result: true };
-    resultController.post_result(mockReq, mockRes);
+      const expected = {
+        game: { ...gameplan, ...mockRequest_post_result.body },
+        completed: false,
+      };
 
-    expect(mockRes.json).toHaveBeenCalledWith(expected);
+      expect(mockResponse_post_result.json).toHaveBeenCalledWith(expected);
+    });
   });
 });
