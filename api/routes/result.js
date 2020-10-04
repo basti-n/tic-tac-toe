@@ -51,7 +51,7 @@ const router = Router();
  *  post:
  *      summary: Play the Tic Tac Toe Game
  *      description: Post Changes to the game of Tic Tac Toe and returns the current game table
- *      tags: [Gametable]
+ *      tags: [TicTacToe]
  *      parameters:
  *        - in: body
  *          description: The cells to update.
@@ -72,5 +72,25 @@ const router = Router();
  *               type: string
  */
 router.post('/', resultController.post_result);
+
+/**
+ * @swagger
+ * /result/restart:
+ *  post:
+ *      summary: Restart the Tic Tac Toe Game
+ *      description: Restarts a game of Tic Tac Toe
+ *      tags: [TicTacToe]
+ *      responses:
+ *        '201':
+ *          description: Restart successful.
+ *          schema:
+ *             $ref: '#/definitions/Gametable'
+ *        '400':
+ *          description: Error restarting game.
+ *          content:
+ *              application/json:
+ *               type: string
+ */
+router.post('/restart', resultController.post_restart);
 
 module.exports = router;

@@ -1,10 +1,17 @@
 const initialGame = require('../constants/game-table');
 
-const create_mockRequest_post_result_all_completed = () => initialGame.map(
-  (cell) => ({ ...cell, value: Math.random() > 0.5 ? 'x' : 'o' })
-);
+const create_mockRequest_post_result_all_completed = () =>
+  initialGame.map((cell) => ({
+    ...cell,
+    value: Math.random() > 0.5 ? 'x' : 'o',
+  }));
 const create_mockRequest_post_result = (id, value) => [{ id, value }];
-const mockResponse_post_result = { json: (result) => result };
+const mockResponse_post_result = {
+  json: (result) => result,
+  status: function () {
+    return this;
+  },
+};
 
 module.exports = {
   create_mockRequest_post_result,
