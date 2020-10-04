@@ -1,16 +1,23 @@
 .board__grid {
-  border: 2px solid hotpink;
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(3, 150px);
   grid-template-rows: repeat(3, 150px);
-  margin: 0 auto
+  margin: 0 auto;
   justify-content: center;
   width: 500px;
 }
 
 .board__item {
+  align-items: center;
   background: plum;
+  display: flex;
+  font-size: 2rem;
   height: 150px;
+  justify-content: center;
   width: 150px;
+}
+
+.board__item:hover {
+  background: violet;
 }
