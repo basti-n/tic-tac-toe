@@ -2,13 +2,8 @@ const gametable = require('../constants/game-table');
 const { VALID_CELL_VALUES } = require('../constants/valid-cell-values');
 
 module.exports.post_result = (req, res) => {
-  const updatedCells = req.body;
-  res.json(createEmptyGameResponse(filterInvalidValues(updatedCells)));
+  res.json(createEmptyGameResponse(filterInvalidValues(req.body)));
 };
-
-function createGametable(updatedCells) {
-  return { ...gametable, ...updatedCells };
-}
 
 function createEmptyGameResponse(updatedCells) {
   return {
@@ -17,12 +12,15 @@ function createEmptyGameResponse(updatedCells) {
   };
 }
 
+function createGametable(updatedCells) {
+  return [
+    ...gametable.filter(
+      (cell) => !updatedCells.some((updatedCell) => updatedCell.id === cell.id)
+    ),
+    ...updatedCells,
+  ];
+}
+
 function filterInvalidValues(updatedCells) {
-  const validValues = {};
-  for (const cell in updatedCells) {
-    if (VALID_CELL_VALUES.includes(updatedCells[cell].value)) {
-      validValues[cell] = updatedCells[cell];
-    }
-  }
-  return validValues;
+  return updatedCells.filter((cell) => !VALID_CELL_VALUES.includes(cell));
 }
