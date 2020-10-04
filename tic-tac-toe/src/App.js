@@ -34,13 +34,13 @@ function App() {
       )}
       {gameStatus.completed !== false ? (
         <div>
-          <p>Game over.</p>
+          <p className="game__over">Game over.</p>
           <button className="game__restart" onClick={restartGame}>
             Restart Game
           </button>
         </div>
       ) : (
-        <p>
+        <p className="game__playing">
           Next is <b>{player}</b>.
         </p>
       )}

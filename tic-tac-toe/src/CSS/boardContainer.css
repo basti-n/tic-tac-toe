@@ -5,11 +5,16 @@
   align-items: center;
 }
 
-.game p {
-  background: #f2542d;
-  color: #f5dfbb;
+.game__playing {
+  color: #001514;
   font-weight: bolder;
   padding: 5px;
+}
+
+.game__over {
+  color: #744253;
+  font-size: 2rem;
+  font-weight: bolder;
 }
 
 .game__restart {
@@ -18,8 +23,8 @@
   color: #f5dfbb;
   font-size: 1rem;
   font-variant: small-caps;
+  margin-bottom: 20px;
   padding: 10px 20px;
-  margin-bottom: 30px;
   width: 165px;
 }
 
