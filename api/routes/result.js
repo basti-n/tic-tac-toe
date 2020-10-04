@@ -82,7 +82,7 @@ router.post('/', resultController.post_result);
  *      tags: [TicTacToe]
  *      responses:
  *        '201':
- *          description: Restart succesful..
+ *          description: Restart successful.
  *          schema:
  *             $ref: '#/definitions/Gametable'
  *        '400':
