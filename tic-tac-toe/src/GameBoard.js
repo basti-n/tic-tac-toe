@@ -17,12 +17,11 @@ export default function GameBoard() {
     completed: false,
     winner: null,
   }
-
-  /*   useEffect(() => {
+  useEffect(() => {
     const updatedGameStatus = axios
       .post('http://localhost:3000/result')
       .then((result) => console.log(result))
-  }, []) */
+  }, [])
 
   const [gameStatus, setGameStatus] = useState(initialState)
   const currentGame = gameStatus.game
