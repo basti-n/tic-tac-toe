@@ -13,9 +13,9 @@ const router = Router();
  *          - completed
  *      properties:
  *          game:
- *           type: object
- *           schema:
- *            $ref: '#/definitions/Game'
+ *           type: array
+ *           items:
+ *            $ref: '#/definitions/Cell'
  *           description: The games current play-state
  *          winner:
  *           type: string
@@ -25,20 +25,9 @@ const router = Router();
  *           type: boolean
  *           description: Indicated whether the game is completed
  *      example:
- *          game: {1: {value: 'x', id: '123'}, 2: {value: 'x', id: '234'}, 3: {value: 'x', id: '345'}, 4: {value: 'x', id: '456'}, 5: {value: 'x', id: '567'}, 6: {value: 'x', id: '678'}, 7: {value: 'x', id: '789'}, 8: {value: 'x', id: '890'}}
+ *          game: [{ value: 'x', id: 'ttt_1' }, { value: null, id: 'ttt_2' },{ value: 'o', id: 'ttt_3' },{ value: null, id: 'ttt_4' },{ value: null, id: 'ttt_5' },{ value: 'x', id: 'ttt_6' },{ value: 'x', id: 'ttt_7' },{ value: null, id: 'ttt_8' },{ value: null, id: 'ttt_9' }]
  *          winner: 'o'
  *          completed: true
- *
- *    Game:
- *      type: object
- *      required:
- *          - id
- *      properties:
- *         id:
- *          type: object
- *          description: TicTacToe Cell
- *          schema:
- *           $ref: '#/definitions/Cell'
  *
  *    Cell:
  *      type: object
