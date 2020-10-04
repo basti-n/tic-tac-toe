@@ -42,6 +42,7 @@ const router = Router();
  *          type: string
  *          nullable: true
  *          description: value of the cell
+ *      example: { value: 'x', id: 'ttt_6' }
  */
 
 /**
@@ -51,6 +52,14 @@ const router = Router();
  *      summary: Play the Tic Tac Toe Game
  *      description: Post Changes to the game of Tic Tac Toe and returns the current game table
  *      tags: [Gametable]
+ *      parameters:
+ *        - in: body
+ *          description: The cells to update.
+ *          schema:
+ *           type: array
+ *           items:
+ *            $ref: '#/definitions/Cell'
+ *
  *      responses:
  *        '200':
  *          description: Step succesfully added.
