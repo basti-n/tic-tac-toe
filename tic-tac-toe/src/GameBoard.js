@@ -12,16 +12,21 @@ export default function GameBoard({
       .post('http://localhost:3000/result', gameStatus.game)
       .then((result) => updateGameStatus(result.data))
       .catch((error) => console.error(error))
-  }, [player])
+  }, [])
 
   function playMove(event) {
     const cellToUpdate = gameStatus.game.findIndex(
       (cell) => cell.id === event.target.id
     )
-    const newGameCells = [...gameStatus.game]
-    newGameCells[cellToUpdate] = { value: player, id: event.target.id }
-    updateGameStatus({ ...gameStatus, game: newGameCells })
-    updatePlayer(player === 'X' ? 'O' : 'X')
+
+    if (event.target.textContent === '') {
+      const newGameCells = [...gameStatus.game]
+      newGameCells[cellToUpdate] = { value: player, id: event.target.id }
+      updateGameStatus({ ...gameStatus, game: newGameCells })
+      updatePlayer(player === 'X' ? 'O' : 'X')
+    } else {
+      return
+    }
   }
 
   return (

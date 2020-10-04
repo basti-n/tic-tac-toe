@@ -5,7 +5,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState({
     game: [],
     completed: false,
-    winner: null,
+    winner: false,
   })
   const [player, setPlayer] = useState('X')
 
@@ -16,13 +16,19 @@ function App() {
   function updateGameStatus(newStatus) {
     setGameStatus(newStatus)
   }
+
   return (
     <main>
       <h1>Tic Tac Toe</h1>
       <p>Play a round of Tic Tac Toe</p>
-      <p>
-        Next is <b>{player}</b>.
-      </p>
+      {gameStatus.winner ? (
+        <p className="winner">The winner is {gameStatus.winner}</p>
+      ) : (
+        <p>
+          Next is <b>{player}</b>.
+        </p>
+      )}
+
       <GameBoard
         player={player}
         updatePlayer={updatePlayer}
