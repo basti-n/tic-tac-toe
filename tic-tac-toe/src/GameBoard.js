@@ -22,11 +22,10 @@ export default function GameBoard() {
   const [player, setPlayer] = useState('X')
 
   useEffect(() => {
-    const updatedGameStatus = axios
-      .post('http://localhost:3000/result')
-      .then((result) => console.log(result))
-
-    //  setGameStatus(updatedGameStatus)
+    axios
+      .post('http://localhost:3000/result', gameStatus.game)
+      .then((result) => setGameStatus(result.data))
+      .catch((error) => console.error(error))
   }, [player])
 
   function playMove(event) {
