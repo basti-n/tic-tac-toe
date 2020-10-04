@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const resultRoutes = require('./routes/result');
+const { serve, setup } = require('./swagger/init');
 
 const app = express();
 const port = process.env.port || 3000;
 
 app.use(express.json());
 app.use(cors());
+app.use('/api-docs', serve, setup());
 app.use('/result', resultRoutes);
 
 app.listen(port, () => console.log(`App listening on port ${port}.`));
