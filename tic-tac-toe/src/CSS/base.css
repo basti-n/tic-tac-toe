@@ -3,10 +3,11 @@
 }
 
 body {
-  margin: 0;
-  padding: 30px;
+  background: #f5dfbb;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
+  margin: 0;
+  padding: 30px;
 }
 
 h1,
@@ -16,4 +17,10 @@ h4,
 h5,
 h6 {
   font-family: 'Courier New', Courier, monospace;
+  color: #562c2c;
+}
+
+main {
+  margin: 0 auto;
+  text-align: center;
 }

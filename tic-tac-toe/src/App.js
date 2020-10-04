@@ -3,11 +3,11 @@ import GameBoard from './GameBoard'
 
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-      <p>Lorem lkahskdha kjha sdkljh asd ha</p>
+    <main>
+      <h1>Tic Tac Toe</h1>
+      <p>Play a round of Tic Tac Toe</p>
       <GameBoard />
-    </>
+    </main>
   )
 }
 
