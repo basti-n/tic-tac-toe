@@ -29,7 +29,7 @@ function getUpdatedGameReponse(updatedCells) {
 
   return {
     game: updatedGame,
-    completed: getIsCompleted(updatedGame),
+    completed: !!winner || getIsCompleted(updatedGame),
     ...{ ...(winner ? { winner } : {}) },
   };
 }
@@ -66,14 +66,11 @@ function getWinner(game) {
   const getKey = (cell) => cell.id.split('_')[1];
   const getId = (cell) => Number(bitMap[getKey(cell) || 0]);
 
-  console.log({ game });
-
   const cellsByValue = game
     .filter((cell) => !!cell.value)
     .reduce((acc, curr) => {
       let currentValue = Number(acc[curr.value]) || 0;
       if (currentValue) {
-        console.log({ acc, curr, currentValue });
         return { ...acc, [curr.value]: currentValue + getId(curr) };
       }
 
@@ -86,20 +83,6 @@ function getWinner(game) {
     const matchingId = cellsByValue[cellByValue];
 
     const isValidCellValue = (value) => value === 'x' || value === 'o';
-    console.log({
-      BITS: winningCombinations.map((combi) => combi.bit),
-      matchingId,
-      cellByValue,
-      results: winningCombinations
-        .map((combi) => combi.bit)
-        .some((w) => (w | matchingId) === matchingId),
-      resultOld: winningCombinations
-        .map((combi) => combi.bit)
-        .some((successValue) => {
-          const match = successValue | matchingId;
-          return match === matchingId;
-        }),
-    });
 
     if (
       isValidCellValue(cellByValue) &&
@@ -111,7 +94,6 @@ function getWinner(game) {
         })
     ) {
       winner = cellByValue;
-      console.log({ winner });
       return winner;
     }
   }
