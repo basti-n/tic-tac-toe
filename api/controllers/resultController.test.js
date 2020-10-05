@@ -61,24 +61,41 @@ describe('ResultController', () => {
     expect(result.completed).toBeTruthy();
   });
 
-  xit('should set winner to x', () => {
-    const mockRequest1 = create_mockRequest_post_result('ttt_1', 'x');
-    let result = resultController.post_result(
-      { body: mockRequest1 },
-      mockResponse_post_result
-    );
-    const mockRequest2 = create_mockRequest_post_result('ttt_2', 'x');
-    result = resultController.post_result(
-      { body: mockRequest2 },
-      mockResponse_post_result
-    );
-    const mockRequest3 = create_mockRequest_post_result('ttt_3', 'x');
-    result = resultController.post_result(
-      { body: mockRequest3 },
-      mockResponse_post_result
-    );
+  describe('Calculate Winner', () => {
+    const createReqAndReturnResult = (id, player) => {
+      const mockRequest = create_mockRequest_post_result(id, player);
+      return resultController.post_result(
+        { body: mockRequest },
+        mockResponse_post_result
+      );
+    };
 
-    expect(result.winner).toEqual('x');
+    it('should set winner to x', () => {
+      let result = createReqAndReturnResult('ttt_1', 'x');
+      result = createReqAndReturnResult('ttt_2', 'x');
+      result = createReqAndReturnResult('ttt_3', 'x');
+
+      expect(result.winner).toEqual('x');
+    });
+
+    it('it should set winner to o', () => {
+      let result = createReqAndReturnResult('ttt_7', 'o');
+      result = createReqAndReturnResult('ttt_3', 'o');
+      result = createReqAndReturnResult('ttt_5', 'o');
+
+      expect(result.winner).toEqual('o');
+    });
+
+    it('it should not set a winner', () => {
+      let result = createReqAndReturnResult('ttt_1', 'o');
+      result = createReqAndReturnResult('ttt_8', 'o');
+      result = createReqAndReturnResult('ttt_4', 'o');
+      result = createReqAndReturnResult('ttt_2', 'x');
+      result = createReqAndReturnResult('ttt_7', 'x');
+      result = createReqAndReturnResult('ttt_3', 'x');
+
+      expect(result.winner).toBeNull();
+    });
   });
 
   describe('postRestart', () => {
