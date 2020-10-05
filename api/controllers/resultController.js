@@ -1,4 +1,8 @@
 const initialGame = require('../constants/game-table');
+const {
+  winningCombinations,
+  bitMap,
+} = require('../constants/winning-combinations');
 const { VALID_CELL_VALUES } = require('../constants/valid-cell-values');
 
 let currentGame;
@@ -22,10 +26,11 @@ module.exports.post_result = (req, res) => {
 function getUpdatedGameReponse(updatedCells) {
   const updatedGame = createGametable(currentGame.game, updatedCells);
   const winner = getWinner(updatedGame);
+
   return {
     game: updatedGame,
     completed: getIsCompleted(updatedGame),
-    ...{ ...(winner || {}) },
+    ...{ ...({ winner } || {}) },
   };
 }
 
@@ -58,7 +63,38 @@ function getIsCompleted(game) {
 }
 
 function getWinner(game) {
-  return null;
+  const getId = (cell) => Number(bitMap[cell.id.split('_')[1] || 0]);
+
+  const cellsByValue = game.reduce((acc, curr) => {
+    let currentValue = Number(acc[curr.value] || 0);
+    if (currentValue) {
+      return { ...acc, [curr.value]: currentValue + getId(curr) };
+    }
+
+    return { ...acc, [curr.value]: getId(curr) };
+  }, {});
+
+  let winner = null;
+
+  for (const cellByValue in cellsByValue) {
+    const matchingId = cellsByValue[cellByValue];
+
+    const isValidCellValue = (value) => value === 'x' || value === 'o';
+    if (
+      isValidCellValue(cellByValue) &&
+      winningCombinations
+        .map((combi) => combi.bit)
+        .some((successValue) => {
+          const match = successValue | matchingId;
+          return match === matchingId;
+        })
+    ) {
+      winner = cellByValue;
+      break;
+    }
+  }
+
+  return winner;
 }
 
 function sortBy(arr, key, direction = 'asc') {
