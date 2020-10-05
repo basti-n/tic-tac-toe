@@ -6,7 +6,7 @@ const winningCombinations = [
   { cells: 258, bit: 146 },
   { cells: 369, bit: 292 },
   { cells: 149, bit: 265 },
-  { cells: 356, bit: 52 },
+  { cells: 357, bit: 84 },
 ];
 
 const bitMap = {

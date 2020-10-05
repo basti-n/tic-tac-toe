@@ -70,6 +70,10 @@ describe('ResultController', () => {
       );
     };
 
+    beforeEach(() =>
+      resultController.post_restart(undefined, mockResponse_post_result)
+    );
+
     it('should set winner to x', () => {
       let result = createReqAndReturnResult('ttt_1', 'x');
       result = createReqAndReturnResult('ttt_2', 'x');
@@ -94,7 +98,7 @@ describe('ResultController', () => {
       result = createReqAndReturnResult('ttt_7', 'x');
       result = createReqAndReturnResult('ttt_3', 'x');
 
-      expect(result.winner).toBeNull();
+      expect(result.winner).toBeUndefined();
     });
   });
 

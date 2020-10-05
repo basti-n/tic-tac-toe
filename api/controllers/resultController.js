@@ -30,7 +30,7 @@ function getUpdatedGameReponse(updatedCells) {
   return {
     game: updatedGame,
     completed: getIsCompleted(updatedGame),
-    ...{ ...({ winner } || {}) },
+    ...{ ...(winner ? { winner } : {}) },
   };
 }
 
@@ -63,16 +63,22 @@ function getIsCompleted(game) {
 }
 
 function getWinner(game) {
-  const getId = (cell) => Number(bitMap[cell.id.split('_')[1] || 0]);
+  const getKey = (cell) => cell.id.split('_')[1];
+  const getId = (cell) => Number(bitMap[getKey(cell) || 0]);
 
-  const cellsByValue = game.reduce((acc, curr) => {
-    let currentValue = Number(acc[curr.value] || 0);
-    if (currentValue) {
-      return { ...acc, [curr.value]: currentValue + getId(curr) };
-    }
+  console.log({ game });
 
-    return { ...acc, [curr.value]: getId(curr) };
-  }, {});
+  const cellsByValue = game
+    .filter((cell) => !!cell.value)
+    .reduce((acc, curr) => {
+      let currentValue = Number(acc[curr.value]) || 0;
+      if (currentValue) {
+        console.log({ acc, curr, currentValue });
+        return { ...acc, [curr.value]: currentValue + getId(curr) };
+      }
+
+      return { ...acc, [curr.value]: getId(curr) };
+    }, {});
 
   let winner = null;
 
@@ -80,6 +86,21 @@ function getWinner(game) {
     const matchingId = cellsByValue[cellByValue];
 
     const isValidCellValue = (value) => value === 'x' || value === 'o';
+    console.log({
+      BITS: winningCombinations.map((combi) => combi.bit),
+      matchingId,
+      cellByValue,
+      results: winningCombinations
+        .map((combi) => combi.bit)
+        .some((w) => (w | matchingId) === matchingId),
+      resultOld: winningCombinations
+        .map((combi) => combi.bit)
+        .some((successValue) => {
+          const match = successValue | matchingId;
+          return match === matchingId;
+        }),
+    });
+
     if (
       isValidCellValue(cellByValue) &&
       winningCombinations
@@ -90,7 +111,8 @@ function getWinner(game) {
         })
     ) {
       winner = cellByValue;
-      break;
+      console.log({ winner });
+      return winner;
     }
   }
 
