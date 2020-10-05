@@ -80,6 +80,7 @@ describe('ResultController', () => {
       result = createReqAndReturnResult('ttt_3', 'x');
 
       expect(result.winner).toEqual('x');
+      expect(result.completed).toBeTruthy();
     });
 
     it('it should set winner to o', () => {
@@ -88,6 +89,7 @@ describe('ResultController', () => {
       result = createReqAndReturnResult('ttt_5', 'o');
 
       expect(result.winner).toEqual('o');
+      expect(result.completed).toBeTruthy();
     });
 
     it('it should not set a winner', () => {
