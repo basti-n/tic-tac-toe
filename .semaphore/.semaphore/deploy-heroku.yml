@@ -1,0 +1,35 @@
+version: v1.0
+name: Deploy to Heroku
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy to Heroku
+    task:
+      secrets:
+        # Make credentials available for jobs for MongoDB, Docker Hub and Heroku
+        # For info on creating secrets, see:
+        # https://docs.semaphoreci.com/article/66-environment-variables-and-secrets
+        - name: dockerhub
+        - name: heroku
+      # Define environment variables for the jobs on this block.
+      # For info on environment variables, see:
+      # https://docs.semaphoreci.com/article/66-environment-variables-and-secrets
+      env_vars:
+        - name: HEROKU_APP
+          value: tic-tac-toe-api-docker
+      jobs:
+        - name: Deploy
+          commands:
+            - checkout
+            # login to Docker Hub and pull the image
+            - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+            - docker pull "$DOCKER_USERNAME"/api:latest
+            # push the image to Heroku registry
+            - heroku container:login
+            - docker tag "$DOCKER_USERNAME"/api:latest registry.heroku.com/tic-tac-toe-api-docker/web
+            - docker push registry.heroku.com/tic-tac-toe-api-docker/web
+            # release the app to production
+            - heroku stack:set container --app tic-tac-toe-api-docker
+            - heroku container:release web --app tic-tac-toe-api-docker
