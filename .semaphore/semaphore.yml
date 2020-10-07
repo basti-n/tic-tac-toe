@@ -17,3 +17,6 @@ blocks:
             - 'docker push "${DOCKER_USERNAME}/api:latest"'
       secrets:
         - name: dockerhub
+promotions:
+  - name: Deploy to Heroku
+    pipeline_file: deploy-heroku.yml
