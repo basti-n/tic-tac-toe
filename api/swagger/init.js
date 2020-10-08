@@ -13,7 +13,7 @@ const swaggerOptions = {
         name: 'Sebastian und Miriam',
         url: 'https://github.com/basti-n/tic-tac-toe',
       },
-      servers: [`http://localhost:${process.env.port || 3000}`],
+      servers: [`http://localhost:${process.env.PORT || 5000}`],
     },
   },
   apis: ['routes/*.js'],
