@@ -5,10 +5,11 @@ const { serve, setup } = require('./swagger/init');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const host = '0.0.0.0';
 
 app.use(express.json());
 app.use(cors());
 app.use('/api-docs', serve, setup());
 app.use('/result', resultRoutes);
 
-app.listen(port, () => console.log(`App listening on port ${port}.`));
+app.listen(port, host, () => console.log(`App listening on port ${port}.`));
