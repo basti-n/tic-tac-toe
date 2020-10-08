@@ -7,6 +7,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const host = '0.0.0.0';
 
+app.set('port', port);
+
 app.use(express.json());
 app.use(cors());
 app.use('/api-docs', serve, setup());
