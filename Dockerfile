@@ -7,5 +7,5 @@ COPY api/ .
 RUN chown -R app:app /opt/app
 USER app
 RUN npm install
-EXPOSE 3000
-CMD [ "npm", "run", "pm2" ]
+EXPOSE 5000
+CMD [ "npm", "run", "start" ]
